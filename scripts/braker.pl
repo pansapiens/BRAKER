@@ -1223,7 +1223,7 @@ if ( defined($geneMarkGtf) && !$ETPmode ) {
         . (localtime)
         . ": creating softlink of ".rel2abs($geneMarkGtf)." to "
         . "$genemarkDir/genemark.gtf.\n" if ($v > 2);
-    $cmdString =  "ln -s ".rel2abs($geneMarkGtf)." $genemarkDir/genemark.gtf";
+    $cmdString =  "ln -sf ".rel2abs($geneMarkGtf)." $genemarkDir/genemark.gtf";
     print LOG "$cmdString\n" if ($v > 2);
     system($cmdString) == 0 or die("ERROR in file " . __FILE__ ." at line "
         . __LINE__ ."\nFailed to execute: $cmdString!\n");
@@ -5388,7 +5388,7 @@ sub GeneMark_ETP {
                 $stdoutfile = "$errorfilesDir/samtools.sort.$lib.stdout";
                 $cmdString = "$SAMTOOLS_PATH/samtools sort $_ -\@ ".($CPU-1)." -o $genemarkDir/etp_data/".$lib.".bam"
                     . " 1> $stdoutfile 2> $errorfile";
-                # $cmdString = "ln -s $_ $genemarkDir/etp_data/".$lib.".bam";
+                # $cmdString = "ln -sf $_ $genemarkDir/etp_data/".$lib.".bam";
                 print LOG "$cmdString\n" if ($v > 3);
                 system("$cmdString") == 0
                     or clean_abort("$AUGUSTUS_CONFIG_PATH/species/$species",
@@ -5496,7 +5496,7 @@ sub GeneMark_ETP {
         get_etp_hints_for_Augustus();
     }
 
-    $cmdString = "ln -s $traingtf $genemarkDir/training.gtf";
+    $cmdString = "ln -sf $traingtf $genemarkDir/training.gtf";
     print LOG "\# "
     . (localtime)
     . ": link GeneMark-ETP training genes to $genemarkDir/training.gtf\n" if ($v > 3);
@@ -5984,7 +5984,7 @@ sub training_augustus {
                 . (localtime)
                 . ": creating softlink from $gmGtf to $trainGenesGtf.\n"
                 if ($v > 3);
-            $cmdString = "ln -s $gmGtf $trainGenesGtf";
+            $cmdString = "ln -sf $gmGtf $trainGenesGtf";
             print LOG "$cmdString\n" if ($v > 3);
             system($cmdString) == 0
                 or clean_abort("$AUGUSTUS_CONFIG_PATH/species/$species",
@@ -5995,7 +5995,7 @@ sub training_augustus {
                 . (localtime)
                 . ": creating softlink from $traingtf to $trainGenesGtf.\n"
                 if ($v > 3);
-            $cmdString = "ln -s $traingtf $trainGenesGtf";
+            $cmdString = "ln -sf $traingtf $trainGenesGtf";
             print LOG "$cmdString\n" if ($v > 3);
             system($cmdString) == 0
                 or clean_abort("$AUGUSTUS_CONFIG_PATH/species/$species",
@@ -9244,7 +9244,7 @@ sub bam2wig {
     } else {
         print LOG "\# " . (localtime) . ":  For conversion, creating "
             . "softlink to bam file $bam[0]...\n" if ( $v > 3 );
-        $cmdString = "ln -s $bam[0] $otherfilesDir/merged.bam";
+        $cmdString = "ln -sf $bam[0] $otherfilesDir/merged.bam";
         print LOG "$cmdString\n" if ( $v > 3 );
         system($cmdString) == 0 or die( "ERROR in file " . __FILE__
             . " at line " . __LINE__
@@ -9341,7 +9341,7 @@ sub bam2stranded_wig{
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
     }elsif(scalar(@plus_index) == 1){
-        $cmdString = "ln -s $bam[$plus_index[0]] $bam_plus";
+        $cmdString = "ln -sf $bam[$plus_index[0]] $bam_plus";
         print LOG "\n$cmdString\n" if ($v > 3);
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
@@ -9384,7 +9384,7 @@ sub bam2stranded_wig{
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
     }elsif(scalar(@minus_index) == 1){
-        $cmdString = "ln -s $bam[$minus_index[0]] $bam_minus";
+        $cmdString = "ln -sf $bam[$minus_index[0]] $bam_minus";
         print LOG "\n$cmdString\n" if ($v > 3);
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
@@ -9427,7 +9427,7 @@ sub bam2stranded_wig{
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
     }elsif(scalar(@unstranded_index) == 1){
-        $cmdString = "ln -s $bam[$unstranded_index[0]] $bam_unstranded";
+        $cmdString = "ln -sf $bam[$unstranded_index[0]] $bam_unstranded";
         print LOG "\n$cmdString\n" if ($v > 3);
         system("$cmdString") == 0 or die("ERROR in file " . __FILE__
             . " at line " . __LINE__ . "\nFailed to execute: $cmdString!\n");
